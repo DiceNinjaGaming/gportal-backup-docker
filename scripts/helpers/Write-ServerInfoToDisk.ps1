@@ -31,6 +31,8 @@ Function Write-ServerInfoToDisk
             "GAME_ARK_SE" { $gamesList.Add([Game]@{"Name"="Ark_SE";"ConnectionString"="$connectionString";"RemoteFolder"="/ShooterGame/Saved/" }) }
             "GAME_ICARUS" { $gamesList.Add([Game]@{"Name"="Icarus";"ConnectionString"="$connectionString";"RemoteFolder"="/Icarus/Config/" }) }
             "GAME_VALHEIM" { $gamesList.Add([Game]@{"Name"="Valheim";"ConnectionString"="$connectionString";"RemoteFolder"="/save/" }) }
+            "GAME_MINECRAFT_JAVA" { $gamesList.Add([Game]@{"Name"="Minecraft_Java";"ConnectionString"="$connectionString";"RemoteFolder"="/world/" }) }
+            "GAME_MINECRAFT_BEDROCK" { $gamesList.Add([Game]@{"Name"="Minecraft_Bedrock";"ConnectionString"="$connectionString";"RemoteFolder"="/worlds/" }) }
             Default
             {
             Write-Error "The variable name $name is not recognized. If you believe this is in error, please open an issue on our GitHub page: https://github.com/DiceNinjaGaming/gportal-backup-docker"

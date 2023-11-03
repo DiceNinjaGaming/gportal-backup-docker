@@ -39,6 +39,8 @@ Variables without a value are ignored.
 | GAME_ARK_SE | Ark: Survival Evolved |
 | GAME_ICARUS | Icarus |
 | GAME_VALHEIM | Valheim |
+| GAME_MINECRAFT_JAVA | Minecraft Java Edition |
+| GAME_MINECRAFT_BEDROCK | Minecraft Bedrock Edition |
 
 ### To find the FTP Information
 1. Log in to your G-Portal admin
