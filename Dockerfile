@@ -26,9 +26,9 @@ RUN mkdir -p ./working
 RUN mkdir -p ./logs
 
 # Copy scripts
-USER root
 WORKDIR /scripts
-COPY --chmod=+x ./scripts/ .
+COPY ./scripts/ .
+RUN chmod -R +x /scripts
 
 WORKDIR /tmp
 
