@@ -7,9 +7,16 @@ Get-ChildItem -Path /scripts/classes -Filter *.ps1 | ForEach-Object { . $_.FullN
 
 function Read-Configs
 {
-    Write-Output "Reading config info from file"
-    $config = Import-CSV -Path $global:ConfigFile
+    # Write-Information "Reading config info from file"
+    $fileContents = Get-Content -Path $global:ConfigFile -Raw
+    $configJson = ConvertFrom-Json $fileContents
+    $config = @{}
+
+    foreach ($property in $configJson.PSObject.Properties)
+    {
+        $config[$property.Name] = $property.Value
+    }
 
     Return $config
-} # function Get-GamesToBackup
+} # function Read-Configs
 

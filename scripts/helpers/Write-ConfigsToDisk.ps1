@@ -9,10 +9,10 @@ BackupService process(es) spawned by cron.
 Function Write-ConfigsToDisk
 {
     $config = @{}
-    $config.Add("BACKUPS_MAX_COUNT", $env:BACKUPS_MAX_COUNT)
-    $config.Add("LONGTERM_BACKUPS_MAX_COUNT", $env:LONGTERM_BACKUPS_MAX_COUNT)
-    # $config.Add("LOG_FILE_MAX_DAYS", $env:LOG_FILE_MAX_DAYS)
+    $config["BACKUPS_MAX_COUNT"] = $env:BACKUPS_MAX_COUNT
+    $config["LONGTERM_BACKUPS_MAX_COUNT"] = $env:LONGTERM_BACKUPS_MAX_COUNT
 
     Write-Output "Writing config info to file"
-    $config | Export-CSV -Path $global:ConfigFile
+    $configJson = ConvertTo-Json $config
+    $configJson | Out-File -Path $global:ConfigFile
 } # Function Write-ConfigToDisk
