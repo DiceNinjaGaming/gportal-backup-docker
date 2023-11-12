@@ -1,8 +1,8 @@
 Import-Module /scripts/helpers
 
 Write-Output "Writing setup info to disk"
-Write-ServerInfoToDisk
 Write-ConfigsToDisk
+Write-ServerInfoToDisk
 
 Write-Output "Setting up cron"
 Write-Output "Cron Expression: $env:CRON_EXPRESSION"

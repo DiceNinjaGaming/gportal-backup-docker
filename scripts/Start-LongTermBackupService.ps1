@@ -42,10 +42,11 @@ Function Copy-LongTermBackups($game)
   $latestFile = Get-ChildItem -Attributes !Directory $backupFolder | Sort-Object -Descending -Property LastWriteTime | Select-Object -First 1
   Copy-Item $latestFile -Destination $longTermFolder -Verbose
 
-  if ($env:LONGTERM_BACKUPS_MAX_COUNT -gt 0)
+  $longtermBackupsMaxCount = Get-ConfigItemByName "LONGTERM_BACKUPS_MAX_COUNT"
+  if ($longtermBackupsMaxCount -gt 0)
   {
-    Write-Output "Pruning long-term backups (if necessary) for $gameName to keep only the latest $env:LONGTERM_BACKUPS_MAX_COUNT"
-    Get-ChildItem $backupFolder | Sort-Object CreationTime -desc | Select-Object -Skip $env:LONGTERM_BACKUPS_MAX_COUNT | Remove-Item -Force -Verbose
+    Write-Output "Pruning long-term backups (if necessary) for $gameName to keep only the latest $longtermBackupsMaxCount"
+    Get-ChildItem $backupFolder | Sort-Object CreationTime -desc | Select-Object -Skip $longtermBackupsMaxCount | Remove-Item -Force -Verbose
   }
 
   Write-Output "============ Long-term backup completed for $gameName ============"
@@ -61,8 +62,7 @@ $logFileName = "Long-TermBackupService_Log_$((Get-Date).tostring("yyyy-MM-dd_HHm
 $logFilePath = Join-Path $Global:logRoot $logFileName
 Start-Transcript -path $logFilePath -append
 
-Set-Config
-
+Read-Configs
 $games = Get-GamesToBackup
 
 if ($games.Count -gt 0)

@@ -100,11 +100,12 @@ Prunes the backup folder so the maximum backups don't exceed the set limit
 #>
 Function Resize-Backups([string]$gameName)
 {
-  If ($env:BACKUPS_MAX_COUNT -GT 0)
+  $backupMaxCount = Get-ConfigItemByName "BACKUPS_MAX_COUNT"
+  If ($backupMaxCount -GT 0)
   {
     $backupFolder = Get-BackupFolder $gameName
-    Write-Output "Pruning backups (if necessary) for $gameName to keep only the latest $env:BACKUPS_MAX_COUNT"
-    Get-ChildItem $backupFolder | Sort-Object CreationTime -desc | Select-Object -Skip $env:BACKUPS_MAX_COUNT | Remove-Item -Force -Verbose
+    Write-Output "Pruning backups (if necessary) for $gameName to keep only the latest $backupMaxCount"
+    Get-ChildItem $backupFolder | Sort-Object CreationTime -desc | Select-Object -Skip $backupMaxCount | Remove-Item -Force -Verbose
   }
   else {
     Write-Output "Keeping all backups"
@@ -139,8 +140,6 @@ $ErrorActionPreference = "Continue"
 $logFileName = "BackupService_Log_$((Get-Date).tostring("yyyy-MM-dd_HHmmss")).log"
 $logFilePath = Join-Path $Global:logRoot $logFileName
 Start-Transcript -path $logFilePath -append
-
-Set-Config
 
 $games = Get-GamesToBackup
 
