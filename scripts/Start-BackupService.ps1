@@ -56,6 +56,7 @@ Function Get-FilesFromFtpServer($game)
     "7DTD" { $optionalSwitches = '--reject-regex=\/Mods\/' }
   } # Switch ($gameName)
 
+  # The value for the remoteFolder variable is created in the Write-ServerInfoToDisk.ps1 script.
   Write-Output "Getting files from ftp"
   If ($optionalSwitches) { Write-Output "Optional Switches: $optionalSwitches" }
   wget -nH -r -np -nv -R "index.html*" $optionalSwitches -P $workingFolder "$connectionString$remoteFolder"
